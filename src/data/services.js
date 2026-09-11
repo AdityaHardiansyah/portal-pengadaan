@@ -17,8 +17,8 @@ export const services = [
     description: "Peraturan dan regulasi pengadaan barang/jasa.",
     icon: Scroll,
     color: "blue",
-    url: "https://drive.google.com/drive/folders/1ETSk87JwccMSmDccbDJWNgvtNdza2mII?usp=sharing",
-    external: true,
+    url: "/peraturan",
+    external: false,
   },
 
   {
@@ -27,8 +27,8 @@ export const services = [
     description: "Panduan pelaksanaan pengadaan barang/jasa.",
     icon: BookOpen,
     color: "indigo",
-    url: "https://drive.google.com/drive/folders/1_v4nkKgwHR-V3tSFAdUlLEDc7Z7jGRdn?usp=drive_link",
-    external: true,
+    url: "/panduan",
+    external: false,
   },
 
   {
@@ -70,14 +70,29 @@ export const services = [
     url: "https://wbs.bappenas.go.id/",
     external: true,
   },
-
   {
     id: 7,
-    title: "SPSE Bappenas",
-    description: "Akses sistem pengadaan elektronik Bappenas.",
+    title: "Layanan Pengadaan Secara Elektronik",
+    description:
+      "Layanan pengadaan secara elektronik untuk mendukung pelaksanaan pengadaan barang/jasa secara transparan, efektif, dan akuntabel.",
     icon: Desktop,
     color: "cyan",
-    url: "https://spse.inaproc.id/bappenas",
+
+    featured: true,
+
+    image: "/images/lpse-illustration.png",
+
+    buttons: [
+      {
+        label: "Website SPSE Bappenas",
+        url: "https://spse.inaproc.id/bappenas",
+      },
+      {
+        label: "Layanan SPSE",
+        url: "https://spse.inaproc.id/bappenas/kontak",
+      },
+    ],
+
     external: true,
   },
 

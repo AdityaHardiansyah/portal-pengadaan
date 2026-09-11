@@ -1,30 +1,22 @@
 import { useState } from "react";
 
-import { Package, Wallet, Activity, CheckCircle } from "lucide-react";
-
 import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-} from "recharts";
+  Package,
+  CheckCircle,
+  Clock,
+  XCircle,
+  Prohibit,
+} from "@phosphor-icons/react";
 
-import StatisticCard from "./StatisticCard";
+import StatisticsChart from "./StatisticsChart";
 import { statisticsData } from "../data/statistics";
-
-const COLORS = ["#2563EB", "#F59E0B"];
 
 const Statistics = () => {
   const [selectedYear, setSelectedYear] = useState("2026");
 
   const data = statisticsData[selectedYear];
+
+  const hasData = data && data.summary && data.summary.totalPaket > 0;
 
   return (
     <section id="statistik" className="bg-slate-50 py-20">
@@ -82,132 +74,170 @@ const Statistics = () => {
             "
           >
             <option value="2026">2026</option>
-
             <option value="2025">2025</option>
-
             <option value="2024">2024</option>
           </select>
         </div>
 
         {/* ============================
-            SUMMARY
+            DATA BELUM TERSEDIA
         ============================ */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <StatisticCard
-            title="Total Paket"
-            value={data.summary.totalPaket.toLocaleString("id-ID")}
-            description={`Total paket pengadaan tahun ${selectedYear}`}
-            icon={Package}
-          />
+        {!hasData ? (
+          <div className="mt-10 rounded-2xl border border-dashed border-gray-300 bg-white px-6 py-16 text-center">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-100">
+              <Package size={32} weight="duotone" className="text-gray-400" />
+            </div>
 
-          <StatisticCard
-            title="Total Nilai"
-            value={data.summary.totalNilai}
-            description={`Total nilai pengadaan tahun ${selectedYear}`}
-            icon={Wallet}
-          />
-
-          <StatisticCard
-            title="Paket Berjalan"
-            value={data.summary.paketBerjalan.toLocaleString("id-ID")}
-            description="Sedang dalam proses"
-            icon={Activity}
-          />
-
-          <StatisticCard
-            title="Paket Selesai"
-            value={data.summary.paketSelesai.toLocaleString("id-ID")}
-            description="Pengadaan selesai"
-            icon={CheckCircle}
-          />
-        </div>
-
-        {/* ============================
-            CHART
-        ============================ */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {/* ============================
-              STATUS PAKET
-          ============================ */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Status Pengadaan
+            <h3 className="mt-5 text-lg font-semibold text-gray-900">
+              Data Belum Tersedia
             </h3>
 
-            <p className="mt-1 text-sm text-gray-500">
-              Distribusi status paket tahun {selectedYear}
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-gray-500">
+              Data statistik pengadaan untuk tahun {selectedYear} belum tersedia
+              pada sistem.
             </p>
+          </div>
+        ) : (
+          <>
+            {/* ============================
+                SUMMARY STATUS
+            ============================ */}
+            <div className="mt-10">
+              <div className="mb-5">
+                <h3 className="text-xl font-bold text-gray-900">
+                  Jumlah Paket Pengadaan
+                </h3>
 
-            <div className="mt-6 h-[320px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={data.status}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={105}
-                    paddingAngle={3}
-                    label={({ name, percent }) =>
-                      `${name} ${(percent * 100).toFixed(0)}%`
-                    }
-                  >
-                    {data.status.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={COLORS[index % COLORS.length]}
+                <p className="mt-1 text-sm text-gray-500">
+                  Ringkasan status paket pengadaan tahun {selectedYear}.
+                </p>
+              </div>
+
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+                {/* TOTAL */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50">
+                      <Package
+                        size={25}
+                        weight="duotone"
+                        className="text-blue-600"
                       />
-                    ))}
-                  </Pie>
+                    </div>
 
-                  <Tooltip />
+                    <span className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+                      Total
+                    </span>
+                  </div>
 
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
+                  <div className="mt-5">
+                    <p className="text-3xl font-bold text-gray-900">
+                      {(data.summary.totalPaket ?? 0).toLocaleString("id-ID")}
+                    </p>
+
+                    <p className="mt-1 text-sm text-gray-500">Total paket</p>
+                  </div>
+                </div>
+
+                {/* BERHASIL */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-50">
+                    <CheckCircle
+                      size={25}
+                      weight="duotone"
+                      className="text-emerald-600"
+                    />
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-3xl font-bold text-gray-900">
+                      {(
+                        data.status?.find((item) => item.name === "Berhasil")
+                          ?.value ?? 0
+                      ).toLocaleString("id-ID")}
+                    </p>
+
+                    <p className="mt-1 text-sm text-gray-500">Berhasil</p>
+                  </div>
+                </div>
+
+                {/* DALAM PROSES */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50">
+                    <Clock
+                      size={25}
+                      weight="duotone"
+                      className="text-amber-600"
+                    />
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-3xl font-bold text-gray-900">
+                      {(
+                        data.status?.find(
+                          (item) => item.name === "Dalam Proses",
+                        )?.value ?? 0
+                      ).toLocaleString("id-ID")}
+                    </p>
+
+                    <p className="mt-1 text-sm text-gray-500">Dalam proses</p>
+                  </div>
+                </div>
+
+                {/* GAGAL */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50">
+                    <XCircle
+                      size={25}
+                      weight="duotone"
+                      className="text-rose-600"
+                    />
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-3xl font-bold text-gray-900">
+                      {(
+                        data.status?.find((item) => item.name === "Gagal")
+                          ?.value ?? 0
+                      ).toLocaleString("id-ID")}
+                    </p>
+
+                    <p className="mt-1 text-sm text-gray-500">Gagal</p>
+                  </div>
+                </div>
+
+                {/* BATAL */}
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100">
+                    <Prohibit
+                      size={25}
+                      weight="duotone"
+                      className="text-slate-600"
+                    />
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-3xl font-bold text-gray-900">
+                      {(
+                        data.status?.find((item) => item.name === "Batal")
+                          ?.value ?? 0
+                      ).toLocaleString("id-ID")}
+                    </p>
+
+                    <p className="mt-1 text-sm text-gray-500">Batal</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* ============================
-              NILAI BULANAN
-          ============================ */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Nilai Pengadaan
-            </h3>
-
-            <p className="mt-1 text-sm text-gray-500">
-              Nilai pengadaan per bulan tahun {selectedYear}
-            </p>
-
-            <div className="mt-6 h-[320px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data.nilaiBulanan}>
-                  <CartesianGrid strokeDasharray="3 3" />
-
-                  <XAxis dataKey="bulan" />
-
-                  <YAxis />
-
-                  <Tooltip
-                    formatter={(value) => [`Rp ${value} Juta`, "Nilai"]}
-                  />
-
-                  <Legend />
-
-                  <Bar
-                    dataKey="nilai"
-                    name="Nilai Pengadaan"
-                    fill="#2563EB"
-                    radius={[6, 6, 0, 0]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+            {/* ============================
+                CHART STATISTIK
+            ============================ */}
+            <div className="mt-10">
+              <StatisticsChart data={data} />
             </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </section>
   );

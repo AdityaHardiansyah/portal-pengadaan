@@ -5,7 +5,9 @@ const ExternalLinks = () => {
   return (
     <section id="tautan" className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-6">
-        {/* Heading */}
+        {/* ============================
+            HEADING
+        ============================ */}
         <div className="text-center">
           <span className="text-sm font-semibold uppercase tracking-wider text-blue-600">
             Tautan Eksternal
@@ -20,8 +22,10 @@ const ExternalLinks = () => {
           </p>
         </div>
 
-        {/* Links */}
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* ============================
+            LINKS
+        ============================ */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {externalLinks.map((link) => (
             <a
               key={link.id}
@@ -32,6 +36,7 @@ const ExternalLinks = () => {
                 group
                 relative
                 flex
+                min-h-[130px]
                 items-center
                 justify-between
                 overflow-hidden
@@ -47,9 +52,12 @@ const ExternalLinks = () => {
                 hover:shadow-xl
               "
             >
-              {/* Decorative Glow */}
+              {/* ============================
+                  DECORATIVE GLOW
+              ============================ */}
               <div
                 className="
+                  pointer-events-none
                   absolute
                   -right-8
                   -top-8
@@ -65,7 +73,9 @@ const ExternalLinks = () => {
                 "
               />
 
-              {/* Left Content */}
+              {/* ============================
+                  LEFT CONTENT
+              ============================ */}
               <div className="relative flex min-w-0 items-center gap-4">
                 {/* Logo */}
                 <div className="relative flex h-14 w-14 shrink-0 items-center justify-center">
@@ -157,7 +167,16 @@ const ExternalLinks = () => {
 
                 {/* Text */}
                 <div className="min-w-0">
-                  <h3 className="truncate font-semibold text-gray-900">
+                  <h3
+                    className="
+                      truncate
+                      font-semibold
+                      text-gray-900
+                      transition-colors
+                      duration-300
+                      group-hover:text-blue-700
+                    "
+                  >
                     {link.name}
                   </h3>
 
@@ -167,7 +186,9 @@ const ExternalLinks = () => {
                 </div>
               </div>
 
-              {/* Arrow */}
+              {/* ============================
+                  ARROW
+              ============================ */}
               <div
                 className="
                   relative
