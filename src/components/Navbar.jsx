@@ -32,17 +32,17 @@ const Navbar = () => {
             LOGO
         ============================ */}
         <a href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#0B3B62] to-[#082C4B] font-bold text-white shadow-sm">
-            PBJ
+          <div className="flex h-10 w-15 items-center justify-center rounded-lg bg-gradient-to-br from-[#0B3B62] to-[#082C4B] font-bold text-white shadow-sm">
+            UKPBJ
           </div>
 
           <div>
             <h1 className="font-bold leading-tight tracking-tight text-gray-900">
-              Portal Pengadaan
+              Unit kerja Pengadaan Barang/Jasa
             </h1>
 
             <p className="text-xs text-gray-500">
-              Informasi & Layanan Pengadaan
+              Unit kerja Pengadaan Barang/Jasa
             </p>
           </div>
         </a>

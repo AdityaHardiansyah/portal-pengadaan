@@ -19,7 +19,7 @@ const Footer = () => {
                 className="
                   flex
                   h-11
-                  w-11
+                  w-15
                   items-center
                   justify-center
                   rounded-xl
@@ -28,14 +28,14 @@ const Footer = () => {
                   text-white
                 "
               >
-                PBJ
+                UKPBJ
               </div>
 
               <div>
-                <h2 className="font-bold">Portal Pengadaan</h2>
+                <h2 className="font-bold">Unit kerja Pengadaan Barang/Jasa</h2>
 
                 <p className="text-xs text-gray-400">
-                  Informasi & Layanan Pengadaan
+                  Unit kerja Pengadaan Barang/Jasa
                 </p>
               </div>
             </div>

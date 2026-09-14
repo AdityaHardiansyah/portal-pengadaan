@@ -4,7 +4,7 @@ export const externalLinks = [
     name: "OSS",
     shortName: "OS",
     description: "Platform pembelajaran elektronik LKPP",
-    url: "https://elearning.lkpp.go.id/",
+    url: "https://oss.go.id/id/panduan",
   },
   {
     id: 2,

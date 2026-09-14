@@ -90,7 +90,7 @@ export const statisticsData = {
         value: 253,
       },
       {
-        name: "Penunjukkan Langsung Permintaan Berulang (Repeat Order)",
+        name: "Repeat Order",
         shortName: "Repeat Order",
         value: 34,
       },
