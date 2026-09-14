@@ -87,27 +87,32 @@ export const statisticsData = {
     metodePemilihan: [
       {
         name: "Seleksi",
+        shortName: "Seleksi",
         value: 253,
       },
       {
-        name: "Repeat Order",
+        name: "Penunjukkan Langsung Permintaan Berulang (Repeat Order)",
         shortName: "Repeat Order",
         value: 34,
       },
       {
         name: "Penunjukkan Langsung",
+        shortName: "Penunjukkan Langsung",
         value: 11,
       },
       {
         name: "Tender",
+        shortName: "Tender",
         value: 8,
       },
       {
         name: "Pengecualian",
+        shortName: "Pengecualian",
         value: 5,
       },
       {
         name: "Tender Cepat",
+        shortName: "Tender Cepat",
         value: 2,
       },
     ],
@@ -197,18 +202,22 @@ export const statisticsData = {
     metodePemilihan: [
       {
         name: "Seleksi",
+        shortName: "Seleksi",
         value: 169,
       },
       {
         name: "Penunjukkan Langsung",
+        shortName: "Penunjukkan Langsung",
         value: 68,
       },
       {
         name: "Pengecualian",
+        shortName: "Pengecualian",
         value: 16,
       },
       {
         name: "Tender",
+        shortName: "Tender",
         value: 1,
       },
     ],

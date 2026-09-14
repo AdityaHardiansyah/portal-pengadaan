@@ -35,7 +35,7 @@ const Footer = () => {
                 <h2 className="font-bold">Unit kerja Pengadaan Barang/Jasa</h2>
 
                 <p className="text-xs text-gray-400">
-                  Unit kerja Pengadaan Barang/Jasa
+                  Unit Kerja Pengadaan Barang/Jasa
                 </p>
               </div>
             </div>

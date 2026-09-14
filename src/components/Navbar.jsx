@@ -42,7 +42,7 @@ const Navbar = () => {
             </h1>
 
             <p className="text-xs text-gray-500">
-              Unit kerja Pengadaan Barang/Jasa
+              Unit Kerja Pengadaan Barang/Jasa
             </p>
           </div>
         </a>

@@ -52,12 +52,17 @@ const CustomTooltip = ({ active, payload }) => {
     return null;
   }
 
+  // Ambil data asli dari item yang sedang di-hover
+  const item = payload[0]?.payload;
+
   return (
     <div className="rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg">
-      <p className="text-sm font-semibold text-gray-900">{payload[0].name}</p>
+      <p className="max-w-[280px] text-sm font-semibold leading-5 text-gray-900">
+        {item?.name || item?.shortName || "Data"}
+      </p>
 
       <p className="mt-1 text-sm text-gray-500">
-        {formatNumber(payload[0].value)} paket
+        {formatNumber(item?.value)} paket
       </p>
     </div>
   );
@@ -82,7 +87,7 @@ const ChartLegend = ({ data, colors }) => {
             }}
           />
 
-          <span className="truncate">{item.name}</span>
+          <span className="min-w-0 flex-1 truncate">{item.name}</span>
 
           <strong className="ml-auto text-gray-900">
             {formatNumber(item.value)}
@@ -106,10 +111,10 @@ const StatisticsChart = ({ data }) => {
 
       <div
         className="
-    grid
-    grid-cols-1
-    gap-6
-    lg:grid-cols-2
+          grid
+          grid-cols-1
+          gap-6
+          lg:grid-cols-2
         "
       >
         {/* =================================================
@@ -340,22 +345,26 @@ const StatisticsChart = ({ data }) => {
                 data={data.metodePemilihan}
                 margin={{
                   top: 10,
-                  right: 5,
-                  left: -20,
+                  right: 10,
+                  left: 0,
                   bottom: 5,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
 
+                {/* =================================================
+                    LABEL PENDEK
+                ================================================= */}
+
                 <XAxis
-                  dataKey="name"
+                  dataKey="shortName"
                   tick={{
                     fontSize: 10,
                   }}
                   interval={0}
                   angle={-20}
                   textAnchor="end"
-                  height={55}
+                  height={70}
                 />
 
                 <YAxis
@@ -363,6 +372,10 @@ const StatisticsChart = ({ data }) => {
                     fontSize: 10,
                   }}
                 />
+
+                {/* =================================================
+                    TOOLTIP NAMA LENGKAP
+                ================================================= */}
 
                 <Tooltip content={<CustomTooltip />} />
 
