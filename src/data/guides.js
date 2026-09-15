@@ -9,33 +9,38 @@ import {
 
 export const guideCategories = [
   {
-    id: "umum",
-    title: "Panduan Umum",
+    id: "pa/kpa",
+    title: "Panduan PA/KPA",
     icon: BookOpen,
   },
   {
-    id: "pengadaan",
-    title: "Panduan Pengadaan",
+    id: "ppk",
+    title: "Panduan PPK",
     icon: FileText,
   },
   {
-    id: "bimtek",
-    title: "Panduan Bimtek",
+    id: "pokja",
+    title: "Panduan Pokja Pemilihan",
     icon: GraduationCap,
   },
   {
-    id: "pelaksanaan",
-    title: "Panduan Pelaksanaan",
+    id: "pp",
+    title: "Panduan PP",
     icon: ClipboardText,
   },
   {
-    id: "evaluasi",
-    title: "Panduan Evaluasi",
+    id: "penyedia",
+    title: "Panduan Pelaku Usaha/Penyedia",
     icon: CheckSquare,
   },
   {
+    id: "sop",
+    title: "Standar Operasional Prosedur (SOP)",
+    icon: Scroll,
+  },
+  {
     id: "lainnya",
-    title: "Panduan Lainnya",
+    title: "Lain - lain",
     icon: Scroll,
   },
 ];
@@ -43,7 +48,7 @@ export const guideCategories = [
 export const guides = [
   {
     id: 1,
-    category: "umum",
+    category: "pa/kpa",
     title: "Panduan Pelaksanaan Pengadaan Barang/Jasa",
     date: "2026",
     url: "https://drive.google.com/drive/folders/1_v4nkKgwHR-V3tSFAdUlLEDc7Z7jGRdn?usp=drive_link",

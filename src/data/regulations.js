@@ -1,32 +1,10 @@
-import {
-  Scales,
-  FileText,
-  Buildings,
-  Gavel,
-  Bank,
-  Scroll,
-} from "@phosphor-icons/react";
+import { FileText, Buildings, Bank, Scroll } from "@phosphor-icons/react";
 
 export const regulationCategories = [
-  {
-    id: "uu",
-    title: "Undang-Undang",
-    icon: Scales,
-  },
-  {
-    id: "pp",
-    title: "Peraturan Pemerintah",
-    icon: FileText,
-  },
   {
     id: "perpres",
     title: "Peraturan Presiden",
     icon: Buildings,
-  },
-  {
-    id: "keppres",
-    title: "Keputusan/Instruksi Presiden",
-    icon: Gavel,
   },
   {
     id: "permen",
@@ -51,44 +29,30 @@ export const regulationCategories = [
 ];
 
 export const regulations = [
+  // Contoh data kategori lain
+
   {
     id: 1,
-    category: "uu",
-    title: "UU Nomor 03 Tahun 2014 tentang Perindustrian",
-    date: "24 November 2023",
+    category: "perpres",
+    title:
+      "Peraturan Presiden Nomor 16 Tahun 2018 Tentang Pengadaan Barang/Jasa Pemerintah",
+    date: "16 Maret 2018",
     url: "https://drive.google.com/drive/folders/1ETSk87JwccMSmDccbDJWNgvtNdza2mII?usp=sharing",
   },
-
   {
     id: 2,
-    category: "uu",
-    title: "UU Nomor 17 Tahun 2003 tentang Keuangan Negara",
-    date: "01 November 2023",
+    category: "perpres",
+    title:
+      "Peraturan Presiden Nomor 12 Tahun 2021 Tentang Perubahan atas Peraturan Presiden Nomor 16 Tahun 2018 Tentang Pengadaan Barang/Jasa Pemerintah",
+    date: "02 Februari 2021",
     url: "https://drive.google.com/drive/folders/1ETSk87JwccMSmDccbDJWNgvtNdza2mII?usp=sharing",
   },
-
   {
     id: 3,
-    category: "uu",
-    title: "UU Nomor 1 Tahun 2004 tentang Perbendaharaan Negara",
-    date: "01 November 2023",
-    url: "https://drive.google.com/drive/folders/1ETSk87JwccMSmDccbDJWNgvtNdza2mII?usp=sharing",
-  },
-
-  // Contoh data kategori lain
-  {
-    id: 4,
-    category: "pp",
-    title: "Peraturan Pemerintah",
-    date: "01 November 2023",
-    url: "https://drive.google.com/drive/folders/1ETSk87JwccMSmDccbDJWNgvtNdza2mII?usp=sharing",
-  },
-
-  {
-    id: 5,
     category: "perpres",
-    title: "Peraturan Presiden",
-    date: "01 November 2023",
+    title:
+      "Peraturan Presiden Nomor 46 Tahun 2025 Tentang Perubahan Kedua atas Peraturan Presiden Nomor 16 Tahun 2018 Tentang Pengadaan Barang/Jasa Pemerintah",
+    date: "30 April 2025",
     url: "https://drive.google.com/drive/folders/1ETSk87JwccMSmDccbDJWNgvtNdza2mII?usp=sharing",
   },
 ];

@@ -22,7 +22,7 @@ export const externalLinks = [
   },
   {
     id: 4,
-    name: "E-Katalogue",
+    name: "E-Katalog",
     shortName: "EK",
     description: "Katalog Elektronik Pengadaan Barang/Jasa",
     url: "https://katalog.inaproc.id/",

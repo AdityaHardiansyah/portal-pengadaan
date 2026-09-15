@@ -51,7 +51,7 @@ const Panduan = () => {
               </h1>
 
               <p className="mx-auto mt-3 max-w-2xl text-gray-500">
-                Kumpulan panduan pelaksanaan pengadaan barang/jasa.
+                Panduan Terkait Pengadaan Barang/Jasa Pemerintah.
               </p>
 
               {/* SEARCH */}

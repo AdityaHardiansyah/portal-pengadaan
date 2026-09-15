@@ -24,15 +24,6 @@ const STATUS_COLORS = [
 
 const JENIS_COLORS = ["#2563eb", "#6366f1", "#8b5cf6", "#14b8a6"];
 
-const DETAIL_COLORS = [
-  "#0ea5e9",
-  "#2563eb",
-  "#6366f1",
-  "#8b5cf6",
-  "#ec4899",
-  "#f97316",
-];
-
 const METODE_COLORS = ["#2563eb", "#14b8a6", "#f59e0b", "#8b5cf6", "#ec4899"];
 
 /* =====================================================
@@ -45,6 +36,9 @@ const formatNumber = (value) => {
 
 /* =====================================================
    CUSTOM TOOLTIP
+   Untuk:
+   - Jumlah Paket
+   - Metode Pemilihan
 ===================================================== */
 
 const CustomTooltip = ({ active, payload }) => {
@@ -52,18 +46,110 @@ const CustomTooltip = ({ active, payload }) => {
     return null;
   }
 
-  // Ambil data asli dari item yang sedang di-hover
   const item = payload[0]?.payload;
+
+  if (!item) {
+    return null;
+  }
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg">
       <p className="max-w-[280px] text-sm font-semibold leading-5 text-gray-900">
-        {item?.name || item?.shortName || "Data"}
+        {item.name || item.shortName || "Data"}
       </p>
 
       <p className="mt-1 text-sm text-gray-500">
-        {formatNumber(item?.value)} paket
+        {formatNumber(item.value)} paket
       </p>
+    </div>
+  );
+};
+
+/* =====================================================
+   DETAIL STATUS TOOLTIP
+===================================================== */
+
+const DetailStatusTooltip = ({ active, payload, label }) => {
+  if (!active || !payload || !payload.length) {
+    return null;
+  }
+
+  const item = payload[0]?.payload;
+
+  if (!item) {
+    return null;
+  }
+
+  const statuses = [
+    {
+      key: "berhasil",
+      label: "Berhasil",
+      color: "#2563eb",
+    },
+    {
+      key: "dalamProses",
+      label: "Dalam Proses",
+      color: "#f59e0b",
+    },
+    {
+      key: "gagal",
+      label: "Gagal",
+      color: "#ef4444",
+    },
+    {
+      key: "batal",
+      label: "Batal",
+      color: "#94a3b8",
+    },
+  ];
+
+  const totalStatus = statuses.reduce(
+    (sum, status) => sum + Number(item?.[status.key] || 0),
+    0,
+  );
+
+  const total = Number(item?.total) || totalStatus;
+
+  return (
+    <div className="min-w-[240px] rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg">
+      {/* Nama Jenis */}
+
+      <p className="max-w-[280px] text-sm font-semibold leading-5 text-gray-900">
+        {label || item.name}
+      </p>
+
+      {/* Status */}
+
+      <div className="mt-3 space-y-2">
+        {statuses.map((status) => (
+          <div key={status.key} className="flex items-center gap-2 text-xs">
+            <span
+              className="h-2.5 w-2.5 shrink-0 rounded-full"
+              style={{
+                backgroundColor: status.color,
+              }}
+            />
+
+            <span className="flex-1 text-gray-600">{status.label}</span>
+
+            <strong className="text-gray-900">
+              {formatNumber(item?.[status.key] || 0)}
+            </strong>
+
+            <span className="text-gray-400">paket</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Total */}
+
+      <div className="mt-3 flex items-center justify-between border-t border-gray-100 pt-3">
+        <span className="text-xs font-semibold text-gray-500">Total</span>
+
+        <span className="text-xs font-bold text-gray-900">
+          {formatNumber(total)} paket
+        </span>
+      </div>
     </div>
   );
 };
@@ -99,14 +185,73 @@ const ChartLegend = ({ data, colors }) => {
 };
 
 /* =====================================================
+   DETAIL STATUS LEGEND
+===================================================== */
+
+const DetailStatusLegend = () => {
+  const statuses = [
+    {
+      label: "Berhasil",
+      color: "#2563eb",
+    },
+    {
+      label: "Dalam Proses",
+      color: "#f59e0b",
+    },
+    {
+      label: "Gagal",
+      color: "#ef4444",
+    },
+    {
+      label: "Batal",
+      color: "#94a3b8",
+    },
+  ];
+
+  return (
+    <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-gray-100 pt-4">
+      {statuses.map((status) => (
+        <div
+          key={status.label}
+          className="flex items-center gap-2 text-xs text-gray-600"
+        >
+          <span
+            className="h-2.5 w-2.5 rounded-full"
+            style={{
+              backgroundColor: status.color,
+            }}
+          />
+
+          <span>{status.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/* =====================================================
    STATISTICS CHART
 ===================================================== */
 
 const StatisticsChart = ({ data }) => {
+  /*
+   * Cek apakah detail sudah memiliki
+   * data status.
+   */
+  const detailData = data?.detailJenisPengadaan || [];
+
+  const hasDetailStatusData = detailData.some(
+    (item) =>
+      Number(item?.berhasil || 0) > 0 ||
+      Number(item?.dalamProses || 0) > 0 ||
+      Number(item?.gagal || 0) > 0 ||
+      Number(item?.batal || 0) > 0,
+  );
+
   return (
     <div className="mt-10">
       {/* =================================================
-          4 CARDS
+          GRID
       ================================================= */}
 
       <div
@@ -150,7 +295,7 @@ const StatisticsChart = ({ data }) => {
             <p className="text-xs text-gray-500">Total Paket</p>
 
             <p className="mt-1 text-3xl font-bold text-gray-900">
-              {formatNumber(data.summary.totalPaket)}
+              {formatNumber(data?.summary?.totalPaket)}
             </p>
           </div>
 
@@ -160,7 +305,7 @@ const StatisticsChart = ({ data }) => {
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
-                  data={data.status}
+                  data={data?.status || []}
                   cx="50%"
                   cy="50%"
                   innerRadius={52}
@@ -168,7 +313,7 @@ const StatisticsChart = ({ data }) => {
                   paddingAngle={3}
                   dataKey="value"
                 >
-                  {data.status.map((entry, index) => (
+                  {(data?.status || []).map((entry, index) => (
                     <Cell
                       key={`status-${index}`}
                       fill={STATUS_COLORS[index % STATUS_COLORS.length]}
@@ -181,137 +326,11 @@ const StatisticsChart = ({ data }) => {
             </ResponsiveContainer>
           </div>
 
-          {/* Legend */}
-
-          <ChartLegend data={data.status} colors={STATUS_COLORS} />
+          <ChartLegend data={data?.status || []} colors={STATUS_COLORS} />
         </div>
 
         {/* =================================================
             CARD 2
-            JENIS PENGADAAN
-        ================================================= */}
-
-        <div
-          className="
-            rounded-2xl
-            border
-            border-gray-200
-            bg-white
-            p-5
-            shadow-sm
-            transition-all
-            duration-300
-            hover:-translate-y-1
-            hover:shadow-lg
-          "
-        >
-          <div>
-            <p className="text-sm font-semibold text-gray-900">
-              Jenis Pengadaan
-            </p>
-
-            <p className="mt-1 text-xs text-gray-500">
-              Distribusi berdasarkan jenis
-            </p>
-          </div>
-
-          <div className="mt-5 h-[240px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={data.jenisPengadaan}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={55}
-                  outerRadius={82}
-                  paddingAngle={3}
-                  dataKey="value"
-                >
-                  {data.jenisPengadaan.map((entry, index) => (
-                    <Cell
-                      key={`jenis-${index}`}
-                      fill={JENIS_COLORS[index % JENIS_COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-
-                <Tooltip content={<CustomTooltip />} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          <ChartLegend data={data.jenisPengadaan} colors={JENIS_COLORS} />
-        </div>
-
-        {/* =================================================
-            CARD 3
-            DETAIL JENIS
-        ================================================= */}
-
-        <div
-          className="
-            rounded-2xl
-            border
-            border-gray-200
-            bg-white
-            p-5
-            shadow-sm
-            transition-all
-            duration-300
-            hover:-translate-y-1
-            hover:shadow-lg
-          "
-        >
-          <div>
-            <p className="text-sm font-semibold text-gray-900">
-              Detail Jenis Pengadaan
-            </p>
-
-            <p className="mt-1 text-xs text-gray-500">
-              Rincian paket pengadaan
-            </p>
-          </div>
-
-          <div className="mt-5 h-[240px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={data.detailJenisPengadaan}
-                layout="vertical"
-                margin={{
-                  top: 5,
-                  right: 10,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-
-                <XAxis type="number" tick={{ fontSize: 11 }} />
-
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  width={80}
-                  tick={{ fontSize: 10 }}
-                />
-
-                <Tooltip content={<CustomTooltip />} />
-
-                <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                  {data.detailJenisPengadaan.map((entry, index) => (
-                    <Cell
-                      key={`detail-${index}`}
-                      fill={DETAIL_COLORS[index % DETAIL_COLORS.length]}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* =================================================
-            CARD 4
             METODE PEMILIHAN
         ================================================= */}
 
@@ -339,10 +358,12 @@ const StatisticsChart = ({ data }) => {
             </p>
           </div>
 
+          {/* Chart */}
+
           <div className="mt-5 h-[240px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={data.metodePemilihan}
+                data={data?.metodePemilihan || []}
                 margin={{
                   top: 10,
                   right: 10,
@@ -351,10 +372,6 @@ const StatisticsChart = ({ data }) => {
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-
-                {/* =================================================
-                    LABEL PENDEK
-                ================================================= */}
 
                 <XAxis
                   dataKey="shortName"
@@ -373,14 +390,10 @@ const StatisticsChart = ({ data }) => {
                   }}
                 />
 
-                {/* =================================================
-                    TOOLTIP NAMA LENGKAP
-                ================================================= */}
-
-                <Tooltip content={<CustomTooltip />} />
+                <Tooltip cursor={false} content={<CustomTooltip />} />
 
                 <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                  {data.metodePemilihan.map((entry, index) => (
+                  {(data?.metodePemilihan || []).map((entry, index) => (
                     <Cell
                       key={`metode-${index}`}
                       fill={METODE_COLORS[index % METODE_COLORS.length]}
@@ -390,6 +403,178 @@ const StatisticsChart = ({ data }) => {
               </BarChart>
             </ResponsiveContainer>
           </div>
+
+          {/* Jumlah Paket */}
+
+          <div className="mt-5 border-t border-gray-100 pt-4">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {(data?.metodePemilihan || []).map((item, index) => (
+                <div key={item.name} className="flex items-center gap-2">
+                  <span
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{
+                      backgroundColor:
+                        METODE_COLORS[index % METODE_COLORS.length],
+                    }}
+                  />
+
+                  <span className="min-w-0 flex-1 truncate text-xs text-gray-600">
+                    {item.shortName || item.name}
+                  </span>
+
+                  <span className="shrink-0 text-xs font-semibold text-gray-900">
+                    {formatNumber(item.value)}
+                  </span>
+
+                  <span className="shrink-0 text-[11px] text-gray-400">
+                    paket
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* =================================================
+            CARD 3
+            DETAIL JENIS PENGADAAN
+            FULL WIDTH
+        ================================================= */}
+
+        <div
+          className="
+            lg:col-span-2
+            rounded-2xl
+            border
+            border-gray-200
+            bg-white
+            p-5
+            shadow-sm
+            transition-all
+            duration-300
+            hover:-translate-y-1
+            hover:shadow-lg
+          "
+        >
+          <div>
+            <p className="text-sm font-semibold text-gray-900">
+              Detail Jenis Pengadaan
+            </p>
+
+            <p className="mt-1 text-xs text-gray-500">
+              Rincian paket berdasarkan status
+            </p>
+          </div>
+
+          {/* =================================================
+              CHART
+          ================================================= */}
+
+          <div className="mt-5 h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={detailData}
+                layout="vertical"
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+
+                <XAxis
+                  type="number"
+                  tick={{
+                    fontSize: 11,
+                  }}
+                />
+
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  width={130}
+                  tick={{
+                    fontSize: 11,
+                  }}
+                />
+
+                {/* Tooltip */}
+
+                <Tooltip cursor={false} content={<DetailStatusTooltip />} />
+
+                {/* =================================================
+                    JIKA DATA STATUS SUDAH TERSEDIA
+                ================================================= */}
+
+                {hasDetailStatusData ? (
+                  <>
+                    <Bar
+                      dataKey="berhasil"
+                      name="Berhasil"
+                      stackId="status"
+                      fill="#2563eb"
+                      barSize={32}
+                    />
+
+                    <Bar
+                      dataKey="dalamProses"
+                      name="Dalam Proses"
+                      stackId="status"
+                      fill="#f59e0b"
+                      barSize={32}
+                    />
+
+                    <Bar
+                      dataKey="gagal"
+                      name="Gagal"
+                      stackId="status"
+                      fill="#ef4444"
+                      barSize={32}
+                    />
+
+                    <Bar
+                      dataKey="batal"
+                      name="Batal"
+                      stackId="status"
+                      fill="#94a3b8"
+                      radius={[0, 6, 6, 0]}
+                      barSize={32}
+                    />
+                  </>
+                ) : (
+                  /* =================================================
+                     JIKA DATA STATUS BELUM TERSEDIA
+
+                     Tampilkan TOTAL sebagai bar netral.
+                  ================================================= */
+
+                  <Bar
+                    dataKey="total"
+                    name="Total"
+                    fill="#cbd5e1"
+                    radius={[0, 6, 6, 0]}
+                    barSize={32}
+                  />
+                )}
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* =================================================
+              LEGEND
+          ================================================= */}
+
+          {hasDetailStatusData ? (
+            <DetailStatusLegend />
+          ) : (
+            <div className="mt-5 flex items-center gap-2 border-t border-gray-100 pt-4 text-xs text-gray-500">
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-300" />
+
+              <span>Data status per jenis pengadaan belum tersedia</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

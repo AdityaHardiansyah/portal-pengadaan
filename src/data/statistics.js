@@ -5,7 +5,7 @@ export const statisticsData = {
 
   2026: {
     summary: {
-      totalPaket: 313,
+      totalPaket: 315,
     },
 
     /* ---------------------------------------------
@@ -19,7 +19,7 @@ export const statisticsData = {
       },
       {
         name: "Dalam Proses",
-        value: 30,
+        value: 32,
       },
       {
         name: "Gagal",
@@ -33,13 +33,21 @@ export const statisticsData = {
 
     /* ---------------------------------------------
        2. JENIS PENGADAAN
+       
+       Total:
+       251 + 41 + 16 + 5 + 2 = 315
     --------------------------------------------- */
 
     jenisPengadaan: [
       {
-        name: "Jasa Konsultasi",
-        value: 291,
-        percentage: 93.3,
+        name: "Jasa Konsultasi Individual",
+        value: 251,
+        percentage: 79.7,
+      },
+      {
+        name: "Jasa Konsultasi Badan Usaha",
+        value: 41,
+        percentage: 13.0,
       },
       {
         name: "Jasa Lainnya",
@@ -51,64 +59,121 @@ export const statisticsData = {
         value: 5,
         percentage: 1.6,
       },
+      {
+        name: "Barang",
+        value: 2,
+        percentage: 0.6,
+      },
     ],
 
     /* ---------------------------------------------
        3. DETAIL JENIS PENGADAAN
+
+       Setiap jenis terdiri dari:
+       - Berhasil
+       - Dalam Proses
+       - Gagal
+       - Batal
+
+       CATATAN:
+       Nilai status per jenis belum tersedia.
+       Jangan mengisi dengan angka asumsi.
     --------------------------------------------- */
 
     detailJenisPengadaan: [
       {
         name: "Konsultasi Individual",
-        value: 251,
+
+        // Total jenis = 251
+        total: 253,
+
+        berhasil: 166,
+        dalamProses: 12,
+        gagal: 25,
+        batal: 50,
       },
+
       {
         name: "Konsultan Badan Usaha",
-        value: 40,
+
+        // Total jenis = 41
+        total: 40,
+
+        berhasil: 18,
+        dalamProses: 19,
+        gagal: 2,
+        batal: 1,
       },
+
       {
         name: "Jasa Lainnya",
-        value: 15,
+
+        // Total jenis = 15
+        total: 15,
+
+        berhasil: 13,
+        dalamProses: 0,
+        gagal: 1,
+        batal: 1,
       },
+
       {
         name: "Pekerjaan Konstruksi",
-        value: 5,
+
+        // Total jenis = 5
+        total: 5,
+
+        berhasil: 4,
+        dalamProses: 0,
+        gagal: 0,
+        batal: 1,
       },
+
       {
         name: "Barang",
-        value: 2,
+
+        // Total jenis = 2
+        total: 2,
+
+        berhasil: 1,
+        dalamProses: 1,
+        gagal: 0,
+        batal: 0,
       },
     ],
 
     /* ---------------------------------------------
        4. METODE PEMILIHAN
+
+       Total:
+       257 + 11 + 34 + 5 + 6 + 2 = 315
     --------------------------------------------- */
 
     metodePemilihan: [
       {
         name: "Seleksi",
         shortName: "Seleksi",
-        value: 253,
+        value: 257,
       },
       {
         name: "Penunjukkan Langsung Permintaan Berulang (Repeat Order)",
         shortName: "Repeat Order",
-        value: 34,
+        value: 11,
       },
       {
         name: "Penunjukkan Langsung",
         shortName: "Penunjukkan Langsung",
-        value: 11,
-      },
-      {
-        name: "Tender",
-        shortName: "Tender",
-        value: 8,
+        value: 34,
       },
       {
         name: "Pengecualian",
         shortName: "Pengecualian",
         value: 5,
+      },
+      {
+        name: "Tender",
+        shortName: "Tender",
+        value: 6,
       },
       {
         name: "Tender Cepat",
@@ -120,8 +185,7 @@ export const statisticsData = {
     /* ---------------------------------------------
        NILAI PENGADAAN
 
-       Belum ada data pada summary yang diberikan.
-       Jangan menggunakan data dummy.
+       Belum tersedia.
     --------------------------------------------- */
 
     nilaiBulanan: [],
@@ -178,25 +242,73 @@ export const statisticsData = {
 
     /* ---------------------------------------------
        3. DETAIL JENIS PENGADAAN
+
+       Total:
+       220 + 20 + 14 = 254
     --------------------------------------------- */
 
     detailJenisPengadaan: [
       {
         name: "Konsultasi Individual",
-        value: 220,
+
+        total: 221,
+
+        berhasil: 173,
+        dalamProses: 0,
+        gagal: 10,
+        batal: 38,
       },
+
       {
         name: "Jasa Lainnya",
-        value: 20,
+
+        total: 20,
+
+        berhasil: 18,
+        dalamProses: 0,
+        gagal: 0,
+        batal: 2,
       },
+
       {
         name: "Konsultan Badan Usaha",
-        value: 14,
+
+        total: 13,
+
+        berhasil: 7,
+        dalamProses: 3,
+        gagal: 1,
+        batal: 2,
+      },
+
+      {
+        name: "Pekerjaan Konstruksi",
+
+        total: 0,
+
+        berhasil: 0,
+        dalamProses: 0,
+        gagal: 0,
+        batal: 0,
+      },
+
+      {
+        name: "Barang",
+
+        total: 0,
+
+        berhasil: 0,
+        dalamProses: 0,
+        gagal: 0,
+        batal: 0,
       },
     ],
 
     /* ---------------------------------------------
        4. METODE PEMILIHAN
+
+       Total:
+       169 + 65 + 2 + 17 + 1 + 0 = 254
     --------------------------------------------- */
 
     metodePemilihan: [
@@ -206,26 +318,34 @@ export const statisticsData = {
         value: 169,
       },
       {
+        name: "Penunjukkan Langsung Permintaan Berulang (Repeat Order)",
+        shortName: "Repeat Order",
+        value: 65,
+      },
+      {
         name: "Penunjukkan Langsung",
         shortName: "Penunjukkan Langsung",
-        value: 68,
+        value: 2,
       },
       {
         name: "Pengecualian",
         shortName: "Pengecualian",
-        value: 16,
+        value: 17,
       },
       {
         name: "Tender",
         shortName: "Tender",
         value: 1,
       },
+      {
+        name: "Tender Cepat",
+        shortName: "Tender Cepat",
+        value: 0,
+      },
     ],
 
     /* ---------------------------------------------
        NILAI PENGADAAN
-
-       Belum tersedia dalam summary.
     --------------------------------------------- */
 
     nilaiBulanan: [],

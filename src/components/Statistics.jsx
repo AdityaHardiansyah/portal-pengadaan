@@ -30,12 +30,12 @@ const Statistics = () => {
           </span>
 
           <h2 className="mt-3 text-3xl font-bold text-gray-900 md:text-4xl">
-            Data Pengadaan
+            Dashboard Kinerja UKPBJ Kementerian PPN/Bappenas
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-gray-500">
-            Informasi statistik pengadaan berdasarkan data yang tersedia pada
-            sistem.
+            Informasi statistik data paket pengadaan yang diusulkan melalui
+            UKPBJ Kementerian PPN/Bappenas.
           </p>
         </div>
 
@@ -75,7 +75,6 @@ const Statistics = () => {
           >
             <option value="2026">2026</option>
             <option value="2025">2025</option>
-            <option value="2024">2024</option>
           </select>
         </div>
 
@@ -109,7 +108,8 @@ const Statistics = () => {
                 </h3>
 
                 <p className="mt-1 text-sm text-gray-500">
-                  Ringkasan status paket pengadaan tahun {selectedYear}.
+                  Ringkasan status paket pengadaan yang diusulakan melalui UKPBJ
+                  Kementerian PPN/Bappenas tahun {selectedYear}.
                 </p>
               </div>
 

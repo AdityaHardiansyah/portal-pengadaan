@@ -4,7 +4,7 @@ import {
   ChatsCircle,
   PresentationChart,
   Handshake,
-  Megaphone,
+  UserList,
   Desktop,
   ChartLineUp,
   Prohibit,
@@ -14,7 +14,7 @@ export const services = [
   {
     id: 1,
     title: "Peraturan",
-    description: "Peraturan dan regulasi pengadaan barang/jasa.",
+    description: "Peraturan Terkait Pengadaan Barang/Jasa Pemerintah.",
     icon: Scroll,
     color: "blue",
     url: "/peraturan",
@@ -24,7 +24,7 @@ export const services = [
   {
     id: 2,
     title: "Panduan",
-    description: "Panduan pelaksanaan pengadaan barang/jasa.",
+    description: "Panduan Terkait Pengadaan Barang/Jasa Pemerintah.",
     icon: BookOpen,
     color: "indigo",
     url: "/panduan",
@@ -33,8 +33,9 @@ export const services = [
 
   {
     id: 3,
-    title: "Permintaan Informasi UKPBJ",
-    description: "Layanan permintaan informasi UKPBJ.",
+    title: "Layanan Permintaan Informasi Publik",
+    description:
+      "Layanan permintaan informasi Publik Secara Elektronik Melalui PPID Kementerian PPN/Bappenas.",
     icon: ChatsCircle,
     color: "violet",
     url: "https://ppid.bappenas.go.id/",
@@ -43,8 +44,9 @@ export const services = [
 
   {
     id: 4,
-    title: "Informasi Bimtek",
-    description: "Informasi bimbingan teknis pengadaan.",
+    title: "Layanan Informasi Pelatihan/Bimtek PBJ",
+    description:
+      "Informasi terkait pelatihan/bimtek PBJ yang diselenggarakan oleh LKPP.",
     icon: PresentationChart,
     color: "orange",
     url: "https://linktr.ee/pelatihanpbj",
@@ -53,8 +55,8 @@ export const services = [
 
   {
     id: 5,
-    title: "Clearing House",
-    description: "Layanan konsultasi dan penyelesaian permasalahan.",
+    title: "Layanan Clearing House PBJ",
+    description: "Forum Penyelesaian Masalah/Advokasi Pengadaan Barang/Jasa.",
     icon: Handshake,
     color: "emerald",
     url: "https://sertifikasipbj.lkpp.go.id/",
@@ -63,11 +65,11 @@ export const services = [
 
   {
     id: 6,
-    title: "Whistleblowing System Bappenas",
-    description: "Saluran pelaporan dugaan pelanggaran di lingkungan Bappenas.",
-    icon: Megaphone,
-    color: "rose",
-    url: "https://wbs.bappenas.go.id/",
+    title: "Layanan Informasi RUP",
+    description: "Informasi Rencana Umum Pengadaan.",
+    icon: ChartLineUp,
+    color: "teal",
+    url: "https://data.inaproc.id/realisasi?tahun=2026&jenis_klpd=1&instansi=K25&eselon=00",
     external: true,
   },
   {
@@ -98,11 +100,11 @@ export const services = [
 
   {
     id: 8,
-    title: "RUP",
-    description: "Informasi Rencana Umum Pengadaan.",
-    icon: ChartLineUp,
-    color: "teal",
-    url: "https://data.inaproc.id/rup",
+    title: "Layanan Daftar Penyedia",
+    description: "Informasi tentang daftar penyedia barang/jasa.",
+    icon: UserList,
+    color: "cyan",
+    url: "https://data.inaproc.id/realisasi?tahun=2026&jenis_klpd=1&instansi=K25&eselon=00",
     external: true,
   },
 
