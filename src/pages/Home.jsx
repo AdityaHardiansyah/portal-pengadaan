@@ -8,8 +8,21 @@ import ExternalLinks from "../components/ExternalLinks";
 import Footer from "../components/Footer";
 import GratifikasiModal from "../components/GratifikasiModal";
 
+const GRATIFIKASI_KEY = "gratifikasi_acknowledged";
+
 const Home = () => {
-  const [showGratifikasi, setShowGratifikasi] = useState(true);
+  const [showGratifikasi, setShowGratifikasi] = useState(() => {
+    return localStorage.getItem(GRATIFIKASI_KEY) !== "true";
+  });
+
+  const handleContinueGratifikasi = () => {
+    localStorage.setItem(GRATIFIKASI_KEY, "true");
+    setShowGratifikasi(false);
+  };
+
+  const handleCloseGratifikasi = () => {
+    setShowGratifikasi(false);
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -29,8 +42,8 @@ const Home = () => {
 
       <GratifikasiModal
         isOpen={showGratifikasi}
-        onClose={() => setShowGratifikasi(false)}
-        onContinue={() => setShowGratifikasi(false)}
+        onClose={handleCloseGratifikasi}
+        onContinue={handleContinueGratifikasi}
       />
     </div>
   );

@@ -50,6 +50,7 @@ export const guides = [
     id: 1,
     category: "pa/kpa",
     title: "Panduan Pelaksanaan Pengadaan Barang/Jasa",
+    description: "Panduan Pelaksanaan Pengadaan Barang/Jasa Pemerintah",
     date: "2026",
     url: "https://drive.google.com/drive/folders/1_v4nkKgwHR-V3tSFAdUlLEDc7Z7jGRdn?usp=drive_link",
   },

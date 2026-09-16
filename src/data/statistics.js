@@ -207,11 +207,11 @@ export const statisticsData = {
     status: [
       {
         name: "Berhasil",
-        value: 198,
+        value: 200,
       },
       {
         name: "Dalam Proses",
-        value: 3,
+        value: 1,
       },
       {
         name: "Gagal",

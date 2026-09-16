@@ -3,11 +3,17 @@ import {
   Envelope,
   WhatsappLogo,
   Phone,
+  MapPin,
 } from "@phosphor-icons/react";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-gray-200 bg-gray-950 text-white">
+    <footer className="bg-[#061F35] text-white">
+      {/* ============================
+          TOP ACCENT
+      ============================ */}
+      <div className="h-[3px] w-full bg-gradient-to-r from-[#0B3B62] via-[#C9A227] to-[#0B3B62]" />
+
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* ============================
@@ -19,23 +25,31 @@ const Footer = () => {
                 className="
                   flex
                   h-11
-                  w-15
+                  w-16
+                  shrink-0
                   items-center
                   justify-center
                   rounded-xl
-                  bg-blue-600
+                  bg-gradient-to-br
+                  from-[#0B3B62]
+                  to-[#082C4B]
+                  text-sm
                   font-bold
                   text-white
+                  ring-1
+                  ring-white/10
                 "
               >
                 UKPBJ
               </div>
 
               <div>
-                <h2 className="font-bold">Unit kerja Pengadaan Barang/Jasa</h2>
-
-                <p className="text-xs text-gray-400">
+                <h2 className="font-bold leading-tight">
                   Unit Kerja Pengadaan Barang/Jasa
+                </h2>
+
+                <p className="mt-0.5 text-xs text-gray-400">
+                  Kementerian PPN / Bappenas
                 </p>
               </div>
             </div>
@@ -45,6 +59,19 @@ const Footer = () => {
               akses informasi pengadaan secara mudah, transparan, dan
               terintegrasi.
             </p>
+
+            {/* Alamat */}
+            <div className="mt-6 flex gap-3">
+              <MapPin
+                size={20}
+                weight="duotone"
+                className="mt-0.5 shrink-0 text-[#C9A227]"
+              />
+
+              <p className="max-w-sm text-sm leading-6 text-gray-400">
+                Jl. Taman Suropati No. 2, Menteng, Jakarta Pusat 10310
+              </p>
+            </div>
           </div>
 
           {/* ============================
@@ -53,12 +80,15 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold">Navigasi</h3>
 
+            <span className="mt-2 block h-0.5 w-8 rounded-full bg-[#C9A227]" />
+
             <ul className="mt-4 space-y-3">
               <li>
                 <a
                   href="/"
-                  className="text-sm text-gray-400 transition hover:text-white"
+                  className="group inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white"
                 >
+                  <span className="h-1 w-1 rounded-full bg-gray-600 transition group-hover:bg-[#C9A227]" />
                   Beranda
                 </a>
               </li>
@@ -66,8 +96,9 @@ const Footer = () => {
               <li>
                 <a
                   href="/#layanan"
-                  className="text-sm text-gray-400 transition hover:text-white"
+                  className="group inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white"
                 >
+                  <span className="h-1 w-1 rounded-full bg-gray-600 transition group-hover:bg-[#C9A227]" />
                   Informasi & Layanan
                 </a>
               </li>
@@ -75,8 +106,9 @@ const Footer = () => {
               <li>
                 <a
                   href="/#statistik"
-                  className="text-sm text-gray-400 transition hover:text-white"
+                  className="group inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white"
                 >
+                  <span className="h-1 w-1 rounded-full bg-gray-600 transition group-hover:bg-[#C9A227]" />
                   Statistik
                 </a>
               </li>
@@ -84,8 +116,9 @@ const Footer = () => {
               <li>
                 <a
                   href="/#tautan"
-                  className="text-sm text-gray-400 transition hover:text-white"
+                  className="group inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white"
                 >
+                  <span className="h-1 w-1 rounded-full bg-gray-600 transition group-hover:bg-[#C9A227]" />
                   Tautan
                 </a>
               </li>
@@ -98,29 +131,38 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold">Kontak</h3>
 
-            <div className="mt-4 space-y-4">
+            <span className="mt-2 block h-0.5 w-8 rounded-full bg-[#C9A227]" />
+
+            <div className="mt-4 space-y-2">
               {/* WhatsApp */}
               <a
                 href="https://wa.me/6281391200901"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex gap-3"
+                className="
+                  group
+                  flex
+                  gap-3
+                  rounded-lg
+                  p-2
+                  transition
+                  hover:bg-white/5
+                "
               >
-                <WhatsappLogo
-                  size={20}
-                  weight="duotone"
-                  className="
-                    shrink-0
-                    text-emerald-400
-                    transition
-                    group-hover:text-emerald-300
-                  "
-                />
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 ring-1 ring-white/10 transition group-hover:ring-white/20">
+                  <WhatsappLogo
+                    size={18}
+                    weight="duotone"
+                    className="text-emerald-400 transition group-hover:text-emerald-300"
+                  />
+                </span>
 
-                <div>
-                  <p className="text-sm font-medium text-gray-300">WhatsApp</p>
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-wide text-gray-500">
+                    WhatsApp
+                  </p>
 
-                  <p className="mt-0.5 text-sm text-gray-400 transition group-hover:text-white">
+                  <p className="mt-0.5 truncate text-sm font-medium text-gray-300 transition group-hover:text-white">
                     0813-9120-0901
                   </p>
 
@@ -129,44 +171,64 @@ const Footer = () => {
               </a>
 
               {/* Email */}
-              <a href="mailto:ulp@bappenas.go.id" className="group flex gap-3">
-                <Envelope
-                  size={20}
-                  weight="duotone"
-                  className="
-                    shrink-0
-                    text-blue-400
-                    transition
-                    group-hover:text-blue-300
-                  "
-                />
+              <a
+                href="mailto:ulp@bappenas.go.id"
+                className="
+                  group
+                  flex
+                  gap-3
+                  rounded-lg
+                  p-2
+                  transition
+                  hover:bg-white/5
+                "
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 ring-1 ring-white/10 transition group-hover:ring-white/20">
+                  <Envelope
+                    size={18}
+                    weight="duotone"
+                    className="text-sky-400 transition group-hover:text-sky-300"
+                  />
+                </span>
 
-                <div>
-                  <p className="text-sm font-medium text-gray-300">Email</p>
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-wide text-gray-500">
+                    Email
+                  </p>
 
-                  <p className="mt-0.5 text-sm text-gray-400 transition group-hover:text-white">
+                  <p className="mt-0.5 truncate text-sm font-medium text-gray-300 transition group-hover:text-white">
                     ulp@bappenas.go.id
                   </p>
                 </div>
               </a>
 
               {/* Telephone */}
-              <a href="tel:0213929094" className="group flex gap-3">
-                <Phone
-                  size={20}
-                  weight="duotone"
-                  className="
-                    shrink-0
-                    text-amber-400
-                    transition
-                    group-hover:text-amber-300
-                  "
-                />
+              <a
+                href="tel:0213929094"
+                className="
+                  group
+                  flex
+                  gap-3
+                  rounded-lg
+                  p-2
+                  transition
+                  hover:bg-white/5
+                "
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 ring-1 ring-white/10 transition group-hover:ring-white/20">
+                  <Phone
+                    size={18}
+                    weight="duotone"
+                    className="text-[#C9A227] transition group-hover:text-[#E0BC46]"
+                  />
+                </span>
 
-                <div>
-                  <p className="text-sm font-medium text-gray-300">Telephone</p>
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-wide text-gray-500">
+                    Telepon
+                  </p>
 
-                  <p className="mt-0.5 text-sm text-gray-400 transition group-hover:text-white">
+                  <p className="mt-0.5 truncate text-sm font-medium text-gray-300 transition group-hover:text-white">
                     021 3929094
                   </p>
                 </div>
@@ -185,7 +247,7 @@ const Footer = () => {
             flex-col
             gap-4
             border-t
-            border-gray-800
+            border-white/10
             pt-6
             md:flex-row
             md:items-center
@@ -200,6 +262,7 @@ const Footer = () => {
           <a
             href="/"
             className="
+              group
               inline-flex
               items-center
               gap-1
@@ -210,7 +273,10 @@ const Footer = () => {
             "
           >
             Portal Pengadaan
-            <ArrowUpRight size={14} />
+            <ArrowUpRight
+              size={14}
+              className="transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
           </a>
         </div>
       </div>
