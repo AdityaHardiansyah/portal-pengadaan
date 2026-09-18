@@ -41,9 +41,7 @@ const Navbar = () => {
               Unit kerja Pengadaan Barang/Jasa
             </h1>
 
-            <p className="text-xs text-gray-500">
-              Unit Kerja Pengadaan Barang/Jasa
-            </p>
+            <p className="text-xs text-gray-500">Kementerian PPN/Bappenas</p>
           </div>
         </a>
 
