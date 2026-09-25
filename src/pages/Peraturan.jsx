@@ -13,20 +13,32 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Peraturan = () => {
-  const [activeCategory, setActiveCategory] = useState("uu");
+  const [activeCategory, setActiveCategory] = useState("perpres");
   const [search, setSearch] = useState("");
 
+  /**
+   * Filter regulations
+   */
   const filteredRegulations = useMemo(() => {
     return regulations.filter((item) => {
       const matchCategory = item.category === activeCategory;
 
-      const matchSearch = item.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const matchSearch =
+        item.title.toLowerCase().includes(search.toLowerCase()) ||
+        item.description?.toLowerCase().includes(search.toLowerCase());
 
       return matchCategory && matchSearch;
     });
   }, [activeCategory, search]);
+
+  /**
+   * Active category
+   */
+  const activeCategoryData = useMemo(() => {
+    return regulationCategories.find(
+      (category) => category.id === activeCategory,
+    );
+  }, [activeCategory]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -125,43 +137,46 @@ const Peraturan = () => {
                       <button
                         key={category.id}
                         type="button"
-                        onClick={() => setActiveCategory(category.id)}
+                        onClick={() => {
+                          setActiveCategory(category.id);
+                          setSearch("");
+                        }}
                         className={`
-                            flex
-                            w-full
-                            items-center
-                            gap-3
-                            rounded-lg
-                            px-4
-                            py-3
-                            text-left
-                            text-sm
-                            font-semibold
-                            transition-all
-                            duration-200
-                            ${
-                              active
-                                ? "bg-blue-800 text-white shadow-sm"
-                                : "text-white/90 hover:bg-white/10"
-                            }
-                          `}
+                          flex
+                          w-full
+                          items-center
+                          gap-3
+                          rounded-lg
+                          px-4
+                          py-3
+                          text-left
+                          text-sm
+                          font-semibold
+                          transition-all
+                          duration-200
+                          ${
+                            active
+                              ? "bg-blue-800 text-white shadow-sm"
+                              : "text-white/90 hover:bg-white/10"
+                          }
+                        `}
                       >
                         <span
                           className={`
-                              flex
-                              h-8
-                              w-8
-                              shrink-0
-                              items-center
-                              justify-center
-                              rounded-full
-                              border
-                              ${
-                                active
-                                  ? "border-white bg-white/10"
-                                  : "border-white/60"
-                              }
-                            `}
+                            flex
+                            h-8
+                            w-8
+                            shrink-0
+                            items-center
+                            justify-center
+                            rounded-full
+                            border
+                            ${
+                              active
+                                ? "border-white bg-white/10"
+                                : "border-white/60"
+                            }
+                          `}
                         >
                           <Icon
                             size={17}
@@ -180,6 +195,70 @@ const Peraturan = () => {
                   DOCUMENT LIST
               ================================= */}
               <div>
+                {/* =================================
+                    CATEGORY INFORMATION
+                ================================= */}
+                {activeCategoryData && (
+                  <div
+                    className="
+                      mb-6
+                      rounded-xl
+                      border
+                      border-blue-100
+                      bg-blue-50/60
+                      p-5
+                    "
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Icon */}
+                      <div
+                        className="
+                          flex
+                          h-11
+                          w-11
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-xl
+                          bg-blue-100
+                          text-blue-600
+                        "
+                      >
+                        <activeCategoryData.icon size={24} weight="duotone" />
+                      </div>
+
+                      {/* Text */}
+                      <div>
+                        <h2 className="text-lg font-bold text-gray-900">
+                          {activeCategoryData.title}
+                        </h2>
+
+                        <p className="mt-1 text-sm leading-6 text-gray-500">
+                          {activeCategoryData.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* =================================
+                    RESULT COUNT
+                ================================= */}
+                {filteredRegulations.length > 0 && (
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="text-sm text-gray-500">
+                      Menampilkan{" "}
+                      <span className="font-semibold text-gray-700">
+                        {filteredRegulations.length}
+                      </span>{" "}
+                      peraturan
+                    </p>
+                  </div>
+                )}
+
+                {/* =================================
+                    DOCUMENT CARDS
+                ================================= */}
                 {filteredRegulations.length > 0 ? (
                   <div className="grid gap-5 md:grid-cols-2">
                     {filteredRegulations.map((item) => (
@@ -189,66 +268,66 @@ const Peraturan = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="
-                            group
-                            relative
-                            block
-                            rounded-xl
-                            border
-                            border-gray-200
-                            bg-white
-                            p-5
-                            transition-all
-                            duration-300
-                            hover:-translate-y-1
-                            hover:border-blue-200
-                            hover:shadow-lg
-                          "
+                          group
+                          relative
+                          block
+                          rounded-xl
+                          border
+                          border-gray-200
+                          bg-white
+                          p-5
+                          transition-all
+                          duration-300
+                          hover:-translate-y-1
+                          hover:border-blue-200
+                          hover:shadow-lg
+                        "
                       >
                         {/* Arrow */}
                         <div
                           className="
-                              absolute
-                              right-5
-                              top-5
-                              flex
-                              h-8
-                              w-8
-                              items-center
-                              justify-center
-                              rounded-full
-                              bg-gray-50
-                              transition
-                              group-hover:bg-blue-50
-                            "
+                            absolute
+                            right-5
+                            top-5
+                            flex
+                            h-8
+                            w-8
+                            items-center
+                            justify-center
+                            rounded-full
+                            bg-gray-50
+                            transition
+                            group-hover:bg-blue-50
+                          "
                         >
                           <ArrowUpRight
                             size={17}
                             weight="bold"
                             className="
-                                text-gray-400
-                                transition
-                                group-hover:text-blue-600
-                              "
+                              text-gray-400
+                              transition
+                              group-hover:text-blue-600
+                            "
                           />
                         </div>
 
                         {/* Icon */}
                         <div
                           className="
-                              flex
-                              h-11
-                              w-11
-                              items-center
-                              justify-center
-                              rounded-xl
-                              bg-blue-50
-                              text-blue-600
-                              transition-all
-                              duration-300
-                              group-hover:scale-110
-                              group-hover:bg-blue-600
-                              group-hover:text-white
-                            "
+                            flex
+                            h-11
+                            w-11
+                            items-center
+                            justify-center
+                            rounded-xl
+                            bg-blue-50
+                            text-blue-600
+                            transition-all
+                            duration-300
+                            group-hover:scale-110
+                            group-hover:bg-blue-600
+                            group-hover:text-white
+                          "
                         >
                           <FileText size={23} weight="duotone" />
                         </div>
@@ -256,29 +335,44 @@ const Peraturan = () => {
                         {/* Title */}
                         <h3
                           className="
-                              mt-5
-                              pr-10
-                              text-base
-                              font-semibold
-                              leading-6
-                              text-gray-900
-                              transition-colors
-                              group-hover:text-blue-700
-                            "
+                            mt-5
+                            pr-10
+                            text-base
+                            font-semibold
+                            leading-6
+                            text-gray-900
+                            transition-colors
+                            group-hover:text-blue-700
+                          "
                         >
                           {item.title}
                         </h3>
 
+                        {/* Description */}
+                        {item.description && (
+                          <p
+                            className="
+                              mt-2
+                              line-clamp-2
+                              text-sm
+                              leading-5
+                              text-gray-500
+                            "
+                          >
+                            {item.description}
+                          </p>
+                        )}
+
                         {/* Date */}
                         <div
                           className="
-                              mt-4
-                              flex
-                              items-center
-                              gap-2
-                              text-xs
-                              text-gray-500
-                            "
+                            mt-4
+                            flex
+                            items-center
+                            gap-2
+                            text-xs
+                            text-gray-500
+                          "
                         >
                           <CalendarBlank size={15} weight="regular" />
 

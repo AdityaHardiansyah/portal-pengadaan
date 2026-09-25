@@ -13,21 +13,30 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Panduan = () => {
-  const [activeCategory, setActiveCategory] = useState("umum");
-
+  const [activeCategory, setActiveCategory] = useState("pa/kpa");
   const [search, setSearch] = useState("");
 
+  /**
+   * Filter guides
+   */
   const filteredGuides = useMemo(() => {
     return guides.filter((item) => {
       const matchCategory = item.category === activeCategory;
 
-      const matchSearch = item.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const matchSearch =
+        item.title.toLowerCase().includes(search.toLowerCase()) ||
+        item.description?.toLowerCase().includes(search.toLowerCase());
 
       return matchCategory && matchSearch;
     });
   }, [activeCategory, search]);
+
+  /**
+   * Active category
+   */
+  const activeCategoryData = useMemo(() => {
+    return guideCategories.find((category) => category.id === activeCategory);
+  }, [activeCategory]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -126,7 +135,10 @@ const Panduan = () => {
                       <button
                         key={category.id}
                         type="button"
-                        onClick={() => setActiveCategory(category.id)}
+                        onClick={() => {
+                          setActiveCategory(category.id);
+                          setSearch("");
+                        }}
                         className={`
                           flex
                           w-full
@@ -148,7 +160,7 @@ const Panduan = () => {
                         `}
                       >
                         <span
-                          className="
+                          className={`
                             flex
                             h-8
                             w-8
@@ -157,8 +169,12 @@ const Panduan = () => {
                             justify-center
                             rounded-full
                             border
-                            border-white/60
-                          "
+                            ${
+                              active
+                                ? "border-white bg-white/10"
+                                : "border-white/60"
+                            }
+                          `}
                         >
                           <Icon
                             size={17}
@@ -174,9 +190,90 @@ const Panduan = () => {
               </aside>
 
               {/* =================================
-                  CARDS
+                  CONTENT
               ================================= */}
               <div>
+                {/* =================================
+                    CATEGORY INFORMATION
+                ================================= */}
+                {activeCategoryData && (
+                  <div
+                    className="
+                      mb-6
+                      rounded-xl
+                      border
+                      border-blue-100
+                      bg-blue-50/60
+                      p-5
+                    "
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Icon */}
+                      <div
+                        className="
+                          flex
+                          h-11
+                          w-11
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-xl
+                          bg-blue-100
+                          text-blue-600
+                        "
+                      >
+                        {(() => {
+                          const Icon = activeCategoryData.icon;
+
+                          return <Icon size={24} weight="duotone" />;
+                        })()}
+                      </div>
+
+                      {/* Text */}
+                      <div>
+                        <h2
+                          className="
+                            text-lg
+                            font-bold
+                            text-gray-900
+                          "
+                        >
+                          {activeCategoryData.title}
+                        </h2>
+
+                        <p
+                          className="
+                            mt-1
+                            text-sm
+                            leading-6
+                            text-gray-500
+                          "
+                        >
+                          {activeCategoryData.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* =================================
+                    RESULT COUNT
+                ================================= */}
+                {filteredGuides.length > 0 && (
+                  <div className="mb-4 flex items-center justify-between">
+                    <p className="text-sm text-gray-500">
+                      Menampilkan{" "}
+                      <span className="font-semibold text-gray-700">
+                        {filteredGuides.length}
+                      </span>{" "}
+                      panduan
+                    </p>
+                  </div>
+                )}
+
+                {/* =================================
+                    CARDS
+                ================================= */}
                 {filteredGuides.length > 0 ? (
                   <div className="grid gap-5 md:grid-cols-2">
                     {filteredGuides.map((item) => (
@@ -197,7 +294,7 @@ const Panduan = () => {
                           transition-all
                           duration-300
                           hover:-translate-y-1
-                          hover:border-blue-200
+                          hover:border-indigo-200
                           hover:shadow-lg
                         "
                       >
@@ -215,7 +312,7 @@ const Panduan = () => {
                             rounded-full
                             bg-gray-50
                             transition
-                            group-hover:bg-blue-50
+                            group-hover:bg-indigo-50
                           "
                         >
                           <ArrowUpRight
@@ -224,7 +321,7 @@ const Panduan = () => {
                             className="
                               text-gray-400
                               transition
-                              group-hover:text-blue-600
+                              group-hover:text-indigo-600
                             "
                           />
                         </div>
@@ -266,6 +363,21 @@ const Panduan = () => {
                           {item.title}
                         </h3>
 
+                        {/* Description */}
+                        {item.description && (
+                          <p
+                            className="
+                              mt-2
+                              line-clamp-2
+                              text-sm
+                              leading-5
+                              text-gray-500
+                            "
+                          >
+                            {item.description}
+                          </p>
+                        )}
+
                         {/* Date */}
                         <div
                           className="
@@ -285,7 +397,9 @@ const Panduan = () => {
                     ))}
                   </div>
                 ) : (
-                  /* EMPTY STATE */
+                  /* =================================
+                     EMPTY STATE
+                  ================================= */
                   <div
                     className="
                       flex
@@ -303,14 +417,29 @@ const Panduan = () => {
                       <FileText
                         size={42}
                         weight="duotone"
-                        className="mx-auto text-gray-300"
+                        className="
+                          mx-auto
+                          text-gray-300
+                        "
                       />
 
-                      <p className="mt-3 font-medium text-gray-600">
+                      <p
+                        className="
+                          mt-3
+                          font-medium
+                          text-gray-600
+                        "
+                      >
                         Data panduan tidak ditemukan
                       </p>
 
-                      <p className="mt-1 text-sm text-gray-400">
+                      <p
+                        className="
+                          mt-1
+                          text-sm
+                          text-gray-400
+                        "
+                      >
                         Coba gunakan kata kunci pencarian lainnya.
                       </p>
                     </div>
