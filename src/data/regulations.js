@@ -43,7 +43,7 @@ export const regulations = [
     id: 1,
     category: "permen",
     title:
-      "Peraturan Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah Nomor 5 Tahun 2020 Tahun 2020",
+      "Peraturan Lembaga Kebijakan Pengadaan Barang/Jasa Pemerintah Nomor 5 Tahun 2020",
     description:
       "Tentang Konfirmasi Status Wajib Pajak Dalam Pengadaan Barang/Jasa Pemerintah.",
     date: "26 Mei 2020",
